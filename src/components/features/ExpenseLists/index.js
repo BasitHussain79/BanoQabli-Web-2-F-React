@@ -1,12 +1,14 @@
 import React from 'react';
 import ExpenseItem from './ExpenseItem';
 
-const ExpenseLists = () => {
+const ExpenseLists = ({ expenses }) => {
+  // props.expenses.forEach((data) => console.log(data.title));
+
   return (
     <ul>
-      <ExpenseItem title='Abc' date='2023-10-11' cost='98' />
-      <ExpenseItem title='Abc1' date='2022-11-01' cost='998' />
-      <ExpenseItem title='Abc2' date='2020-10-11' cost='756' />
+      {expenses.map((d) => (
+        <ExpenseItem title={d.title} date={d.date} cost={d.cost} />
+      ))}
     </ul>
   );
 };
