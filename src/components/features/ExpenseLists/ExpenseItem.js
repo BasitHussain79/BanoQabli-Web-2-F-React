@@ -1,21 +1,25 @@
 import React from 'react';
 
-const ExpenseItem = ({ date, title, cost }) => {
+const ExpenseItem = ({ id, title, cost, getIdHandler }) => {
+  const editHandler = () => {
+    getIdHandler(id, 'edit');
+  };
+
+  const deleteHandler = () => {
+    getIdHandler(id, 'delete');
+  };
   return (
     <li>
-      <div>
-        <p>day</p>
-        <p>month</p>
-        <p>year</p>
-      </div>
-
-      <h3>{title}</h3>
-
+      <div>date</div>
+      <h4>{title}</h4>
       <p>${cost}</p>
-
       <div>
-        <button>Edit</button>
-        <button>Delete</button>
+        <button type='button' onClick={editHandler}>
+          Edit
+        </button>
+        <button type='button' onClick={deleteHandler}>
+          Delete
+        </button>
       </div>
     </li>
   );

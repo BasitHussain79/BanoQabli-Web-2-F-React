@@ -3,8 +3,10 @@ import styles from './Header.module.css';
 
 const Header = () => {
   return (
-    <header className={styles.header}>
-      <h1>Expense Tracker App</h1>
+    <header id={styles.header}>
+      <h1>
+        Awesome Expense Tracker <i className='fa-solid fa-rocket'></i>
+      </h1>
     </header>
   );
 };

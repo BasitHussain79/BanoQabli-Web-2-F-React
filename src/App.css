@@ -4,14 +4,15 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 62.5%; /* 1rem = 10px */
-}
-
 body {
   width: 100%;
   height: auto;
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
-  font-size: 1.6rem;
+}
+
+.sm-container {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
 }

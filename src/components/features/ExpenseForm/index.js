@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import styles from './style.module.css';
 
-const ExpenseForm = ({ getExpense }) => {
-  // const [title, setTitle] = useState('');
-  // const [cost, setCost] = useState('');
-  // const [date, setDate] = useState('');
-
+const ExpenseForm = ({ getData, editExpenseData, editHandler }) => {
   const [expenseData, setExpenseData] = useState({
     title: '',
     cost: '',
     date: '',
   });
+
+  useEffect(() => {
+    setExpenseData({
+      title: editExpenseData?.title ?? '',
+      cost: editExpenseData?.cost ?? '',
+      date: editExpenseData?.date ?? '',
+    });
+  }, [editExpenseData]);
 
   const onChangeHandler = (e) => {
     setExpenseData({
@@ -18,68 +23,51 @@ const ExpenseForm = ({ getExpense }) => {
     });
   };
 
-  // const onChangeTitleHandler = (e) => setTitle(e.target.value);
-  // const onChangeCostHandler = (e) => setCost(e.target.value);
-  // const onChangeDateHandler = (e) => setDate(e.target.value);
+  // const [title, setTitle] = useState('');
+  // const [cost, setCost] = useState('');
+  // const [date, setDate] = useState('');
+
+  // const titleHandler = (e) => setTitle(e.target.value);
+  // const costHandler = (e) => setCost(e.target.value);
+  // const dateHandler = (e) => setDate(e.target.value);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // const data = {
-    //   title,
-    //   cost,
-    //   date,
-    // };
-    getExpense(expenseData);
-    setExpenseData({
-      title: '',
-      cost: '',
-      date: '',
-    });
+    if (editExpenseData !== null) {
+      editHandler({ ...expenseData, id: editExpenseData.id });
+    } else {
+      getData(expenseData);
+    }
   };
+
   return (
-    <form
-      onSubmit={submitHandler}
-      style={{
-        border: '1px solid #333',
-        margin: '1rem 0',
-      }}
-    >
-      <div>
-        <label htmlFor='title'>Title</label> <br />
-        <input
-          type='text'
-          name='title'
-          value={expenseData.title}
-          placeholder='Expense title'
-          id='title'
-          onChange={onChangeHandler}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor='cost'>Cost</label> <br />
+    <form onSubmit={submitHandler} id={styles['expense-form']}>
+      <input
+        type='text'
+        placeholder='Add todo...'
+        name='title'
+        value={expenseData.title}
+        onChange={onChangeHandler}
+      />
+      <div className={styles.cost}>
+        <p>$</p>
         <input
           type='number'
           name='cost'
           value={expenseData.cost}
           onChange={onChangeHandler}
-          placeholder='Expense Price...'
-          id='cost'
-          required
+          placeholder='Cost...'
         />
       </div>
-      <div>
-        <label htmlFor='date'>Date</label> <br />
-        <input
-          type='date'
-          name='date'
-          value={expenseData.date}
-          onChange={onChangeHandler}
-          id='date'
-          required
-        />
-      </div>
-      <button type='submit'>Add</button>
+      <input
+        type='date'
+        name='date'
+        value={expenseData.date}
+        onChange={onChangeHandler}
+      />
+      <button type='submit'>
+        {editExpenseData !== null ? 'Update' : 'Add'}
+      </button>
     </form>
   );
 };
